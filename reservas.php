@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once 'config.php';
+?>
+
 <h1>Minhas Reservas</h1>
 <table>
     <thead>
@@ -11,10 +16,10 @@
     <tbody>
         <?php
         $cliente_id = $_SESSION['cliente_id'];
-        $query = "SELECT reserva.id, quarto.numero_quarto, reserva.data_checkin, reserva.data_checkout, reserva.status 
+        $query = "SELECT reserva.idreserva, quarto.numero_quarto, reserva.data_checkin, reserva.data_checkout, reserva.status 
                   FROM reserva 
-                  JOIN quarto ON reserva.quarto_id = quarto.id 
-                  WHERE reserva.cliente_id = ?";
+                  JOIN quarto ON reserva.quarto_idquarto = quarto.idquarto 
+                  WHERE reserva.cliente_idcliente = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $cliente_id);
         $stmt->execute();

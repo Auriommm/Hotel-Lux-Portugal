@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once 'config.php';
+?>
+
 <h1>Gestão de Clientes</h1>
 <table>
     <thead>
@@ -14,7 +19,7 @@
         $query = "SELECT * FROM cliente";
         $result = $conn->query($query);
         while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>{$row['nome']}</td><td>{$row['email']}</td><td>{$row['contacto']}</td><td><a href='editar_cliente.php?id={$row['id']}'>Editar</a> | <a href='excluir_cliente.php?id={$row['id']}'>Excluir</a></td></tr>";
+            echo "<tr><td>{$row['nome']}</td><td>{$row['email']}</td><td>{$row['contacto']}</td><td><a href='editar_cliente.php?id={$row['idcliente']}'>Editar</a> | <a href='excluir_cliente.php?id={$row['idcliente']}'>Excluir</a></td></tr>";
         }
         ?>
     </tbody>

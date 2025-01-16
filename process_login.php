@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         global $conn;
 
         // Consulta para verificar se o e-mail existe
-        $query = "SELECT id, password_hash FROM cliente WHERE email = ?";
+        $query = "SELECT idcliente, password_hash FROM cliente WHERE email = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();

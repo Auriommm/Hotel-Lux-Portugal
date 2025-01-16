@@ -1,12 +1,14 @@
 <?php
 session_start();
-require_once 'config.php'; // Arquivo de conexão ao banco de dados
+require_once 'config.php';// Arquivo de conexão ao banco de dados
+?>
 
+<?php
 // Verifica se o formulário foi enviado via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recebe os dados do formulário
-    $cliente_id = $_POST['cliente_id'];
-    $quarto_id = $_POST['quarto_id'];
+    $cliente_id = $_POST['cliente_idcliente'];
+    $quarto_id = $_POST['quarto_idquarto'];
     $data_checkin = $_POST['data_checkin'];
     $data_checkout = $_POST['data_checkout'];
 
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Verifica a disponibilidade do quarto
-    $query = "SELECT * FROM reserva WHERE quarto_id = ? AND status = 'Ativa' AND 
+    $query = "SELECT * FROM reserva WHERE quarto_idquarto = ? AND status = 'Ativa' AND 
               (data_checkin BETWEEN ? AND ? OR data_checkout BETWEEN ? AND ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("issss", $quarto_id, $data_checkin, $data_checkout, $data_checkin, $data_checkout);
@@ -43,14 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Insere a reserva no banco de dados
-    $query = "INSERT INTO reserva (cliente_id, quarto_id, data_checkin, data_checkout, status) 
+    $query = "INSERT INTO reserva (cliente_idcliente, quarto_idquarto, data_checkin, data_checkout, status) 
               VALUES (?, ?, ?, ?, 'Ativa')";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iiss", $cliente_id, $quarto_id, $data_checkin, $data_checkout);
 
     if ($stmt->execute()) {
         // Atualiza o status do quarto para 'Reservado'
-        $query = "UPDATE quarto SET status = 'Reservado' WHERE id = ?";
+        $query = "UPDATE quarto SET status = 'Reservado' WHERE idreserva = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $quarto_id);
         $stmt->execute();

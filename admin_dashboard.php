@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_id'])) {
 // Funções para obter estatísticas
 function getActiveClients() {
     global $conn;
-    $query = "SELECT COUNT(*) FROM cliente WHERE deleted_at IS NULL"; // Exemplo de soft delete
+    $query = "SELECT COUNT(*) FROM cliente WHERE created_at IS NULL"; // Exemplo de soft delete
     $result = $conn->query($query);
     $row = $result->fetch_row();
     return $row[0];

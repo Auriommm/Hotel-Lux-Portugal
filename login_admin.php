@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         global $conn;
 
         // Consulta SQL para buscar o administrador pelo nome de usuário
-        $query = "SELECT id, password_hash FROM admin WHERE username = ?";
+        $query = "SELECT idadmin, password_hash FROM admin WHERE username = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Verifica se a senha corresponde ao hash no banco de dados
             if (password_verify($password, $password_hash)) {
                 // Inicia a sessão do administrador
-                $_SESSION['admin_id'] = $id;
+                $_SESSION['admin_idadmin'] = $id;
                 return true; // Login bem-sucedido
             }
         }

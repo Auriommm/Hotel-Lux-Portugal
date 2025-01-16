@@ -3,7 +3,7 @@ session_start();
 require_once 'config.php';
 
 // Verificar se o administrador está logado
-if (!isset($_SESSION['admin_id'])) {
+if (!isset($_SESSION['admin_idquarto'])) {
     header("Location: login_admin.php");
     exit();
 }
@@ -45,8 +45,8 @@ $result = $conn->query($query);
                         <td>€<?= $row['preco'] ?></td>
                         <td><?= $row['status'] ?></td>
                         <td>
-                            <a href="editar_quarto.php?id=<?= $row['id'] ?>">Editar</a> |
-                            <a href="excluir_quarto.php?id=<?= $row['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                            <a href="editar_quarto.php?id=<?= $row['idquarto'] ?>">Editar</a> |
+                            <a href="excluir_quarto.php?id=<?= $row['idquarto'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
